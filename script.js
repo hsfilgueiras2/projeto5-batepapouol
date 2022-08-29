@@ -1,14 +1,12 @@
 const chat = document.querySelector(".chat")
-let username = {
-    name: prompt("QUAL SEU LINDO NOME:")
-}
-let serverAnswer = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", username);
+let username = prompt("QUAL SEU LINDO NOME:")
+
+let serverAnswer = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", {
+    name: username
+  });
 
 serverAnswer.then(isUnernameFreeT)
 serverAnswer.catch(isUnernameFreeC)
-
-
-
 
 function sendMessage(){
     const text = document.querySelector("input").value;
@@ -20,20 +18,21 @@ function sendMessage(){
     }
     const toSend = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", messageToSend)
     toSend.then(messageGet)
-    toSend.catch(function(err){console.log(err)})
+    toSend.catch(window.location.reload())
 }
 function isUnernameFreeT(resposta){
     console.log(resposta);
     while(resposta.status == 400){
-        username = {
-            name: prompt("Esse nome esta indisponivel, pf escolha outro:")
-        }
-        axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",username);
+        username = prompt("Esse nome esta indisponivel, pf escolha outro:")
+
+        axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",{
+            name: username
+          });
         serverAnswer = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
         serverAnswer.then()
         serverAnswer.catch()
     }
-        alert("vc esta logado")
+        alert("vc esta logado, as mensagens aparecerao em breve")
         setInterval(isUserOnline, 5000);
         setInterval(messageGet, 3000);
     
@@ -43,10 +42,11 @@ function isUnernameFreeT(resposta){
 function isUnernameFreeC(erro){
     console.log(erro);
     while(erro.response.status == 400){
-        username = {
-            name: prompt("Esse nome esta indisponivel, pf escolha outro:")
-        }
-        axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",username);
+        username = prompt("Esse nome esta indisponivel, pf escolha outro:")
+
+        axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",{
+            name: username
+          });
         serverAnswer = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
         serverAnswer.then()
         serverAnswer.catch()
@@ -70,7 +70,9 @@ function messageGet(){
     incoming.then(displayChat)
 }
 function isUserOnline(){
-    const maintainConnection = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", username);
+    const maintainConnection = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", {
+        name: username
+      });
     maintainConnection.then(function(pr){
         console.log(pr)
     });
@@ -91,4 +93,7 @@ function displayMessage(object){
         <p><em>(${object.time})</em> <bold>${object.from}</bold> 
          ${object.text}</p></li>`
     }
+    var ul    = document.querySelector("ul");
+    var lastMess = ul.children[ul.children.length - 1];
+    lastMess.scrollIntoView();
 }
