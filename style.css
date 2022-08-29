@@ -26,8 +26,13 @@ body{
     font-size: 40px;
 }
 .middleChat{
-
+    margin-bottom: 80px;
     background: #F3F3F3;
+}
+.middleChat li{
+    height: 40px;
+    border-radius: 2px;
+    width: 100%;
 }
 .bottomBar{
     box-sizing: border-box;
@@ -49,8 +54,15 @@ body{
     height: 30px;
 
 color: #000000;
-
-
+}
+input ::placeholder{
+    color: #000000;
+    opacity: 1;
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
 }
 .bottomBar > :nth-last-child(1){
     font-size: 30px;
