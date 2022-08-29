@@ -49,6 +49,7 @@ function isUnernameFreeC(erro){
 }
 
 function displayChat(inbox){
+    console.log(inbox);
     chat.innerHTML = ""
     inbox.data.forEach(element => {
         displayMessage(element) 
@@ -63,5 +64,16 @@ function isUserOnline(){
     axios.post("https://mock-api.driven.com.br/api/v6/uol/status", username);
 }
 function displayMessage(object){
-    
+    if (object.type == "message"){
+    chat.innerHTML = chat.innerHTML +
+    `<li class="${object.type}">
+    <p><em>(${object.time})</em> <bold>${object.from}</bold> para <bold>${object.to}</bold>:
+     ${object.text}</p></li>`
+    }
+    else{
+        chat.innerHTML = chat.innerHTML +
+        `<li class="${object.type}">
+        <p><em>(${object.time})</em> <bold>${object.from}</bold> 
+         ${object.text}</p></li>`
+    }
 }

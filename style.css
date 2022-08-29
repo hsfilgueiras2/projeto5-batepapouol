@@ -30,9 +30,40 @@ body{
     background: #F3F3F3;
 }
 .middleChat li{
-    height: 40px;
+    margin-top: 4px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
     border-radius: 2px;
     width: 100%;
+}
+
+.middleChat li > p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000000;
+}
+.middleChat li p bold {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    color: #000000;
+}
+.middleChat li p em {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #AAAAAA;
+}
+.status {
+    background: #DCDCDC;
+}
+.message{
+    background: #FFFFFF;
 }
 .bottomBar{
     box-sizing: border-box;
