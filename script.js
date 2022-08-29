@@ -2,17 +2,27 @@ const chat = document.querySelector(".chat")
 let username = {
     name: prompt("QUAL SEU LINDO NOME:")
 }
-axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", username);
-let serverAnswer = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+let serverAnswer = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", username);
+
 serverAnswer.then(isUnernameFreeT)
 serverAnswer.catch(isUnernameFreeC)
 
 
 
 
-
+function sendMessage(){
+    const text = document.querySelector("input").value;
+    const messageToSend = {
+        from: username,
+        to: "Todos",
+        text: text,
+        type: "message"
+    }
+    const toSend = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", messageToSend)
+    toSend.then(messageGet)
+    toSend.catch(function(err){console.log(err)})
+}
 function isUnernameFreeT(resposta){
-    alert("then")
     console.log(resposta);
     while(resposta.status == 400){
         username = {
@@ -31,7 +41,6 @@ function isUnernameFreeT(resposta){
 
 
 function isUnernameFreeC(erro){
-    alert("catch")
     console.log(erro);
     while(erro.response.status == 400){
         username = {
@@ -61,7 +70,13 @@ function messageGet(){
     incoming.then(displayChat)
 }
 function isUserOnline(){
-    axios.post("https://mock-api.driven.com.br/api/v6/uol/status", username);
+    const maintainConnection = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", username);
+    maintainConnection.then(function(pr){
+        console.log(pr)
+    });
+    maintainConnection.catch(function(err){
+        console.log(err)
+    })
 }
 function displayMessage(object){
     if (object.type == "message"){
